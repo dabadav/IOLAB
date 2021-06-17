@@ -34,22 +34,37 @@ def showSequence(filename):
 # int(b''.join(str))
 # example: if str = [b'3',b'0',b'9'] then  atoi(str) =  309
 def atoi(str):
-  
-    return 0
+    out = 0
+    for a in str:
+        out = (int(a) + out) * 10   
+    return (out//10)
 
-# line is a bytestring ended by '\n'
+# line is a byte string ended by '\n'
 # that contains "length=<nnn>", where <nnn> are ascii digits
 # readLenght(line) must return an integer
 def readLenght(line):
-   
-    return 0
+    out = list()
+    key = 0
+
+    for char in line:
+        if char == '>':
+            break
+
+        if key == 1:
+            out.append(char)
+    
+        if char == '<':
+            key = 1
+            pass
+
+    return atoi(out)
 
 
 # Argument fd is a file descriptor of an already open file
 # This functions returns a list of bytes read from the file 
 # until a new line is reached (b'\n')
 def readLine(fd):
- 
+    
     return []
 
 
@@ -95,3 +110,6 @@ def worstQlty(seqLine, qltyLine):
 def showWorstQlty(filename):
    
     return 0
+
+print(atoi([b'3',b'0',b'9']))
+print(readLenght("length=<123>"))
