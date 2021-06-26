@@ -11,7 +11,7 @@ import ioLab as io
 try:
     fn = sys.argv[1]
 except IndexError as ie:
-    print("Usage:",sys.argv[0], "fasq filename")
+    print("Usage:",sys.argv[0], "fastq filename")
     sys.exit(1)
 
 if not os.path.exists(fn):
