@@ -10,13 +10,11 @@ import re
  
 # STEP 1: Read the following instructions carefully.
  
-#  You will provide your solution to the IO Lab by
+# You will provide your solution to the IO Lab by
 # editing the collection of functions in this source file.
 
 # For input/output, you only can use os.read() and os.write() functions. 
 # However, you can use print()  in the showXXX functions  and for debugging purposes.
-
-
 
 # This is an example!
 # Argument filename is a path to the fastq file to  read
@@ -30,6 +28,7 @@ def showSequence(filename):
     os.close(fd)
     return 0
 
+
 # str is a vector of ASCII bytes representing digits from 0 - 9
 # function atoi converts str to integer.  The behavior is must be the same as 
 # int(b''.join(str))
@@ -39,6 +38,7 @@ def atoi(str):
     for a in str:
         out = (int(a) + out) * 10   
     return (out//10)
+
 
 # line is a byte string ended by '\n'
 # that contains "length=<nnn>", where <nnn> are ascii digits
@@ -56,7 +56,6 @@ def readLine(fd):
     out = fd.read()
     return out
 
- 
 
 # Argument line is a Fastq line in a bytestring. 
 # like the return of readLine(fd).
@@ -66,11 +65,9 @@ def writeLine(line):
     return 0
 
 
-
 # Argument filename is a path to the fastq file to  read
 # This function opens filename and reads its first line, printing on screen
 # the name of the sequence and the number of bases
-
 def showHeader(filename):
 
     return 0

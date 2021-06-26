@@ -9,7 +9,7 @@ Input files: FASTQ format
 
 ------
 
-SYSTEM CALLS: open, read, write, close and pipe
+[SYSTEM CALLS](https://docs.python.org/3/library/os.html): open, read, write, close and pipe.
 
 <u>HANDOUT</u>: **ioLab.py**; **seqFastqParser.py** must be edited and delivered.
 
