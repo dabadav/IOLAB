@@ -49,10 +49,8 @@ def readLenght(line):
     for char in line:
         if char == '>':
             break
-
         if key == 1:
             out.append(char)
-    
         if char == '<':
             key = 1
             pass
