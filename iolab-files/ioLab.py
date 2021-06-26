@@ -1,4 +1,5 @@
-import os 
+import os
+import re 
 
 
 # ioLab.py version 0.1
@@ -42,31 +43,18 @@ def atoi(str):
 # line is a byte string ended by '\n'
 # that contains "length=<nnn>", where <nnn> are ascii digits
 # readLenght(line) must return an integer
-def readLenght(line):
-    out = list()
-    key = 0
-
-    for char in line:
-        if char == '>':
-            break
-
-        if key == 1:
-            out.append(char)
-    
-        if char == '<':
-            key = 1
-            pass
-
-    return atoi(out)
+def readLenght(line):    
+    regex = r'length=(\d+)'
+    matches = re.findall(regex,line)    
+    return atoi(matches)
 
 
 # Argument fd is a file descriptor of an already open file
 # This functions returns a list of bytes read from the file 
 # until a new line is reached (b'\n')
 def readLine(fd):
-    
-    return []
-
+    out = fd.read()
+    return out
 
  
 
@@ -112,4 +100,5 @@ def showWorstQlty(filename):
     return 0
 
 print(atoi([b'3',b'0',b'9']))
-print(readLenght("length=<123>"))
+a = readLenght("ACCDDFFTT length=453")
+print(a)
