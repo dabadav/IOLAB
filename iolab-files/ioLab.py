@@ -17,11 +17,13 @@ import re
 # However, you can use print()  in the showXXX functions  and for debugging purposes.
 
 # This is an example!
-# Argument filename is a path to the fastq file to  read
+# Argument filename is a path to the fastq file to read
 # This function opens filename and reads the header and the sequence of bases and prints the last on screen
 def showSequence(filename):
-    fd  = os.open(filename, os.O_RDONLY)
-    line = readLine(fd)
+    fd  = open(filename, "rt")
+    # The first line is just read and not used
+    line = readLine(fd)  
+    # The seconbd line contains the actual sequence
     line = readLine(fd)
     writeLine(b''.join(line))
     os.write(1,b'\n')
@@ -43,7 +45,7 @@ def atoi(str):
 # line is a byte string ended by '\n'
 # that contains "length=<nnn>", where <nnn> are ascii digits
 # readLenght(line) must return an integer
-def readLenght(line):    
+def readLength(line):    
     regex = r'length=(\d+)'
     matches = re.findall(regex,line)    
     return atoi(matches)
@@ -53,7 +55,7 @@ def readLenght(line):
 # This functions returns a list of bytes read from the file 
 # until a new line is reached (b'\n')
 def readLine(fd):
-    out = fd.read()
+    out = fd.readline()
     return out
 
 
@@ -61,7 +63,7 @@ def readLine(fd):
 # like the return of readLine(fd).
 # This function writes all the line to standard output
 def writeLine(line):
-
+    print(line)
     return 0
 
 
@@ -69,9 +71,16 @@ def writeLine(line):
 # This function opens filename and reads its first line, printing on screen
 # the name of the sequence and the number of bases
 def showHeader(filename):
+    fq = open(filename,"rt" )
+    line = readLine(fq)
+    regex = r'(\@.*) length=(\d+)'
+    matches = re.findall(regex,line)    
+    print("Name: %s, Number of Bases: %s" % (matches[0][0],matches[0][1]))
+    fq.close()
+    return
 
+def new_func():
     return 0
-
 
 # Argument filename is a path to the fastq file to  read
 # This function opens filename and reads its bases. For each base, 
@@ -96,6 +105,40 @@ def showWorstQlty(filename):
    
     return 0
 
+filename = 'SRR.fastq'
+filepath = 'C:\cit\SRR.fastq'
+
+showHeader(filepath)
+showSequence(filepath)
+
+"""
 print(atoi([b'3',b'0',b'9']))
-a = readLenght("ACCDDFFTT length=453")
+line1 = "ACCDDFFTT lenght=453"
+a = readLenght(line1)
 print(a)
+line2 = '@HWI-EAS209_0006_FC706VJ:5:58:5894:21141#ATCACG/1 length=453'
+regex = r'(\@.*) length=(\d+)'
+match = re.findall(regex,line2)    
+print("%s, %s, %s" % (match[0],match[1],match[2]))
+regex = r'(\@.*) length=(\d+)'
+matches = re.findall(regex,line2) 
+print("%s, %s, %s" % (matches[0],matches[1],matches[2]))
+filename = 'SRR.fastq'
+filename = 'SRR000033.fastq'
+scriptdir = os.path.dirname(__file__)
+filepath = os.path.join(scriptdir,filename)
+filepath = 'C:\cit\SRR.fastq'
+fq = os.open(filepath, os.O_RDONLY)
+fq = open(filepath, "rt")
+line = readLine(fq)
+regex = r'(\@.*) length=(\d+)'
+matches = re.findall(regex,line) 
+print (matches[0][0])
+print (matches[0][1])
+#print(f"Name: {matches[0][0]}, Number of Bases: {matches[0][1]}"  )
+print("Name: %s, Number of Bases: %s" % (matches[0][0],matches[0][1]) )
+print("Name: %s, Number of Bases: %d" % (matches[0][0],atoi(matches[0][1])) )
+"""
+
+
+
