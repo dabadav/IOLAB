@@ -69,8 +69,11 @@ def writeLine(line):
 # This function opens filename and reads its first line, printing on screen
 # the name of the sequence and the number of bases
 def showHeader(filename):
-
-    return 0
+    out = list()
+    line = readLine(filename)
+    #name = # Search for sequence name
+    length = readLenght(line)
+    return out
 
 
 # Argument filename is a path to the fastq file to  read
