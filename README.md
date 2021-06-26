@@ -11,7 +11,7 @@ Input files: FASTQ format
 
 SYSTEM CALLS: open, read, write, close and pipe
 
-<u>HANDOUT</u>: **ioLab.py**; **parFastqParser.py** must be edited and delivered.
+<u>HANDOUT</u>: **ioLab.py**; **seqFastqParser.py** must be edited and delivered.
 
 **ioLab.py**
 
