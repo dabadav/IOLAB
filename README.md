@@ -13,19 +13,21 @@ SYSTEM CALLS: open, read, write, close and pipe
 
 <u>HANDOUT</u>: **ioLab.py**; **parFastqParser.py** must be edited and delivered.
 
-ioLab.py
-toi(str) Converts the bytestring str to integer 2
-readLine(fd) Returns a line, in a list of bytes, read from the file descriptor fd. 1
-writeLine(line) Prints line to standard output. 1
-readLenght(line) Returns the lenght of a sequence. 2
-showHeader(filename) Prints name and length of a Fastq file. 1
-showSeqQlty(filename) Prints pair base-¿quality. 2
-worstQlty(seqLine, qltyLine) Returns the worst pairs base→quality. 3
-showWorstQlty(filename) Prints the worst pair base→quality. 1
+**ioLab.py**
 
-parFastqParser.py
+- toi(str) Converts the bytestring str to integer 2
+- readLine(fd) Returns a line, in a list of bytes, read from the file descriptor fd. 1
+- writeLine(line) Prints line to standard output. 1
+- readLenght(line) Returns the lenght of a sequence. 2
+- showHeader(filename) Prints name and length of a Fastq file. 1
+- showSeqQlty(filename) Prints pair base-¿quality. 2
+- worstQlty(seqLine, qltyLine) Returns the worst pairs base→quality. 3
+- showWorstQlty(filename) Prints the worst pair base→quality. 1
+
+**parFastqParser.py**
 Computes and prints the worst quality of all the scores. 
 In order to do that you will have two processes and two pipes. 
+
 - One pipe, named p2ch (from parent to child) where the parent writes and the child reads. 
 - Other one, named ch2p (from child to parent), where the child writes and the parent reads. 
 
