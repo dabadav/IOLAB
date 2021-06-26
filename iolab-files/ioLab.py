@@ -70,7 +70,8 @@ def writeLine(line):
 # the name of the sequence and the number of bases
 def showHeader(filename):
     out = list()
-    line = readLine(filename)
+    fd  = os.open(filename, os.O_RDONLY)
+    line = readLine(fd)
     #name = # Search for sequence name
     length = readLenght(line)
     return out
