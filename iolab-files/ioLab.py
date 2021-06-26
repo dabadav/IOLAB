@@ -61,8 +61,8 @@ def readLine(fd):
 # like the return of readLine(fd).
 # This function writes all the line to standard output
 def writeLine(line):
-
-    return 0
+    out = line.write()
+    return out
 
 
 # Argument filename is a path to the fastq file to  read
