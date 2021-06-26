@@ -2,11 +2,10 @@ import os
 import re 
 
 
-# ioLab.py version 0.1
-# Last modified on Fri 28 May 2021
-# This module contains all the functions you must program. 
+# ioLab.py
 # 
-# Instructions to Students:
+# DANTE AVIÑÓ - 106390
+# 
  
 # STEP 1: Read the following instructions carefully.
  
