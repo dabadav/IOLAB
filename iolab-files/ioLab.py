@@ -1,7 +1,6 @@
 import os
 import re 
 
-
 # ioLab.py
 # 
 # DANTE AVIÑÓ - 106390
@@ -20,13 +19,10 @@ import re
 # This function opens filename and reads the header and the sequence of bases and prints the last on screen
 def showSequence(filename):
     fd  = open(filename, "rt")
-    # The first line is just read and not used
-    line = readLine(fd)  
-    # The seconbd line contains the actual sequence
-    line = readLine(fd)
-    writeLine(b''.join(line))
-    os.write(1,b'\n')
-    os.close(fd)
+    headerline = readLine(fd)      
+    seqline    = readLine(fd)
+    writeLine(b''.join(seqline))
+    fd.close()
     return 0
 
 
@@ -78,37 +74,80 @@ def showHeader(filename):
     fq.close()
     return
 
-def new_func():
-    return 0
 
-# Argument filename is a path to the fastq file to  read
-# This function opens filename and reads its bases. For each base, 
+# Argument filename is a path to the fastq file to read
+# This function opens filename and reads bases on its fisrt sequence. For each base, 
 # prints a pair base --> quality
 def showSeqQlty(filename):
-
+    fq = open(filename,"rt" )
+    while True:
+        headerline = readLine(fq)
+        if headerline:
+            seqline    = readLine(fq)
+            breakline  = readLine(fq)
+            qltyline   = readLine(fq)
+            seqlength = readLength(headerline)
+            for i in range(seqlength):
+                print ("%c --> %d" % (seqline[i], ord(qltyline[i])-33 ), end ='\n')
+        else:
+            break    
     return 0
 
 
 # Arguments are bytestrings sequence of bases and its correspondence qualities
 # The function returns de worst pair, ie, the base with the lowest quality
 # Returns a list [base, quality] of the worst pair base -> quality
-def worstQlty(seqLine, qltyLine):
- 
-    return []
+def worstQlty(seqLine, qltyLine): 
+    worstqlty =  ord( qltyLine[0] ) - 33 
+    base      = seqLine[0]
+    seqlength = len( seqLine )
 
-# Argument filename is a path to the fastq file to  read
+    for i in range(seqlength):
+        quality =  ord( qltyLine[i] ) - 33 
+        if ( quality < worstqlty ):
+            worstqlty = quality
+            base = seqLine[i]
+
+    return [base,worstqlty]
+
+# Argument filename is a path to the fastq file to read
 # This function opens filename and reads its bases. 
 # It shows the worst pair. 
 # Prints a pair base --> quality
 def showWorstQlty(filename):
-   
+    fq = open(filename,"rt" )
+    # Read first sequence
+    headerline = fq.readline().rstrip("\n")    
+    if headerline:                
+        seqline   = fq.readline().rstrip("\n")
+        breakline = fq.readline().rstrip("\n")
+        qltyline  = fq.readline().rstrip("\n")
+        allworst = worstQlty(seqline,qltyline)
+
+    while True:
+        headerline = fq.readline().rstrip("\n")
+        if headerline:            
+            seqline   = fq.readline().rstrip("\n")
+            breakline = fq.readline().rstrip("\n")
+            qltyline  = fq.readline().rstrip("\n")
+            worst = worstQlty(seqline,qltyline)
+
+        if (worst[1] < allworst[1]):
+            allworst = worst
+        else:
+            break
+    print("The worst: %c -> %d" % (allworst[0],allworst[1]))    
     return 0
 
-filename = 'SRR.fastq'
-filepath = 'C:\cit\SRR.fastq'
+    
 
-showHeader(filepath)
-showSequence(filepath)
+filename = 'SRR000049.fastq'
+scriptdir = os.path.dirname(__file__)
+filepath = os.path.join(scriptdir,filename)
+#showHeader(filepath)
+#showSequence(filepath)
+#showSeqQlty(filepath)
+showWorstQlty(filepath)
 
 """
 print(atoi([b'3',b'0',b'9']))
