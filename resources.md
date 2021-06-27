@@ -7,6 +7,13 @@ https://pythonexamples.org/python-read-text-file/
 Python File Open
 https://www.w3schools.com/python/python_file_handling.asp
 
+OS Path module in Python
+https://www.geeksforgeeks.org/os-path-module-python/
+
+Python - Lists
+https://www.tutorialspoint.com/python/python_lists.htm
+
+
 
 Pluralsight Courses
 
