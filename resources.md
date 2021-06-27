@@ -33,6 +33,10 @@ Understanding Machine Learning with Python
 https://app.pluralsight.com/library/courses/python-understanding-machine-learning/table-of-contents
 
 
+Applied Data Science with Python Specialization
+https://www.coursera.org/specializations/data-science-python
+
+
 Guides
 
 Visual Studio Code for Python Development

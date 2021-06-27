@@ -1,7 +1,7 @@
 import os
 import re 
 
-# ioLab.py v0.9
+# ioLab.py version 0.801
 # 
 # DANTE AVIÑÓ - 106390
 # 
@@ -18,7 +18,7 @@ import re
 # Argument filename is a path to the fastq file to read
 # This function opens filename and reads the header and the sequence of bases and prints the last on screen
 def showSequence(filename):
-    fd  = os.open(filename, os.O_RDONLY)
+    fd  = open(filename, "rt")
     headerline = readLine(fd)      
     seqline    = readLine(fd)
     writeLine(b''.join(seqline))
@@ -90,7 +90,8 @@ def showSeqQlty(filename):
             for i in range(seqlength):
                 print ("%c --> %d" % (seqline[i], ord(qltyline[i])-33 ), end ='\n')
         else:
-            break    
+            break
+    fq.close()
     return 0
 
 
@@ -136,7 +137,8 @@ def showWorstQlty(filename):
             allworst = worst
         else:
             break
-    print("The worst: %c -> %d" % (allworst[0],allworst[1]))    
+    print("The worst: %c -> %d" % (allworst[0],allworst[1]))
+    fq.close()    
     return 0
 
     
@@ -145,9 +147,9 @@ filename = 'SRR000049.fastq'
 scriptdir = os.path.dirname(__file__)
 filepath = os.path.join(scriptdir,filename)
 #showHeader(filepath)
-showSequence(filepath)
+#showSequence(filepath)
 #showSeqQlty(filepath)
-#showWorstQlty(filepath)
+showWorstQlty(filepath)
 
 """
 print(atoi([b'3',b'0',b'9']))
