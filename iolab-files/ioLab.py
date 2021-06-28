@@ -50,7 +50,7 @@ def readLength(line):
 # This functions returns a list of bytes read from the file 
 # until a new line is reached (b'\n')
 def readLine(fd):    
-    out = []
+    out = list() 
     while True:       
         input = os.read(fd,1)
         if (not input):
