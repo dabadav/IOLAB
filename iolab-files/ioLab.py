@@ -87,13 +87,13 @@ def showHeader(filename):
 # This function opens filename and reads bases on its fisrt sequence. For each base, 
 # prints a pair base --> quality
 def showSeqQlty(filename):
-    fd  = os.open(filename, os.O_RDONLY)
+    fd = os.open(filename, os.O_RDONLY)
     while True:
         headerline = readLine(fd)
         if headerline:
-            seqline    = readLine(fd)
-            breakline  = readLine(fd)
-            qltyline   = readLine(fd)
+            seqline   = readLine(fd)
+            breakline = readLine(fd)
+            qltyline  = readLine(fd)
             seqlength = readLength(headerline)
             for i in range(seqlength):
                 print ("%c --> %d" % (seqline[i], ord(qltyline[i])-33 ), end ='\n')
@@ -107,7 +107,7 @@ def showSeqQlty(filename):
 # The function returns de worst pair, ie, the base with the lowest quality
 # Returns a list [base, quality] of the worst pair base -> quality
 def worstQlty(seqLine, qltyLine): 
-    worstqlty =  ord( qltyLine[0] ) - 33 
+    worstqlty = ord( qltyLine[0] ) - 33 
     base      = seqLine[0]
     seqlength = len( seqLine )
 
@@ -151,11 +151,10 @@ def showWorstQlty(filename):
     return 0
 
    
-
-#filename = 'SRR.fastq'
-filename = 'SRR000049.fastq'
+filename  = 'SRR000049.fastq'
 scriptdir = os.path.dirname(__file__)
-filepath = os.path.join(scriptdir,filename)
+filepath  = os.path.join(scriptdir,filename)
+
 #showHeader(filepath)
 showSequence(filepath)
 #showSeqQlty(filepath)
@@ -189,6 +188,3 @@ print (matches[0][1])
 print("Name: %s, Number of Bases: %s" % (matches[0][0],matches[0][1]) )
 print("Name: %s, Number of Bases: %d" % (matches[0][0],atoi(matches[0][1])) )
 """
-
-
-
