@@ -6,7 +6,7 @@ import ioLab as io
 ##  In order todo that you will have two processes and two pipes.
 
 # Open fasta file
-fd= os.open("SRR000049.fastq",os.O_RDONLY)
+fd = os.open("SRR000049.fastq",os.O_RDONLY)
 
 # Creation of 2 pipes
 p2ch = os.pipe()
