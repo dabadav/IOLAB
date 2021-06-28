@@ -155,36 +155,4 @@ filename  = 'SRR000049.fastq'
 scriptdir = os.path.dirname(__file__)
 filepath  = os.path.join(scriptdir,filename)
 
-#showHeader(filepath)
 showSequence(filepath)
-#showSeqQlty(filepath)
-#showWorstQlty(filepath)
-
-"""
-print(atoi([b'3',b'0',b'9']))
-line1 = "ACCDDFFTT lenght=453"
-a = readLenght(line1)
-print(a)
-line2 = '@HWI-EAS209_0006_FC706VJ:5:58:5894:21141#ATCACG/1 length=453'
-regex = r'(\@.*) length=(\d+)'
-match = re.findall(regex,line2)    
-print("%s, %s, %s" % (match[0],match[1],match[2]))
-regex = r'(\@.*) length=(\d+)'
-matches = re.findall(regex,line2) 
-print("%s, %s, %s" % (matches[0],matches[1],matches[2]))
-filename = 'SRR.fastq'
-filename = 'SRR000033.fastq'
-scriptdir = os.path.dirname(__file__)
-filepath = os.path.join(scriptdir,filename)
-filepath = 'C:\cit\SRR.fastq'
-fq = os.open(filepath, os.O_RDONLY)
-fq = open(filepath, "rt")
-line = readLine(fq)
-regex = r'(\@.*) length=(\d+)'
-matches = re.findall(regex,line) 
-print (matches[0][0])
-print (matches[0][1])
-#print(f"Name: {matches[0][0]}, Number of Bases: {matches[0][1]}"  )
-print("Name: %s, Number of Bases: %s" % (matches[0][0],matches[0][1]) )
-print("Name: %s, Number of Bases: %d" % (matches[0][0],atoi(matches[0][1])) )
-"""

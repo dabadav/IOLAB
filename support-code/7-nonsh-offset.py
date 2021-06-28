@@ -1,3 +1,4 @@
+
 #!/usr/bin/python3 -s
 # nonsh-offset.py
 # counts number of A in sequential, non sharing the fd
