@@ -1,6 +1,12 @@
 import os
 import ioLab as io
 
+
+# parFastqParser.py v0.1
+#
+# DANTE AVIÑÓ - 106390
+# 
+ 
 ##  ** Computes and Prints the worst quality of all the scores ** 
 # 
 ##  In order todo that you will have two processes and two pipes.
