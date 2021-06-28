@@ -21,7 +21,7 @@ def showSequence(filename):
     fd  = os.open(filename, os.O_RDONLY)
     headerline = readLine(fd)      
     seqline    = readLine(fd)
-    writeLine(b''.join(seqline))
+    writeLine(seqline)
     os.close(fd)
     return 0
 
@@ -42,7 +42,7 @@ def atoi(str):
 # readLenght(line) must return an integer
 def readLength(line):    
     regex = r'length=(\d+)'
-    matches = re.findall(regex,line)    
+    matches = re.findall(regex,str(line))    
     return atoi(matches)
 
 
@@ -59,7 +59,7 @@ def readLine(fd):
             break
         else:
             out.append(input)
-    return out
+    return (b"".join(out))
 
 
 # Argument line is a Fastq line in a bytestring. 
@@ -80,7 +80,7 @@ def showHeader(filename):
     fd  = os.open(filename, os.O_RDONLY)
     line = readLine(fd)
     regex = r'(\@.*) length=(\d+)'
-    matches = re.findall(regex,line)    
+    matches = re.findall(regex,str(line))   
     print("Name: %s, Number of Bases: %s" % (matches[0][0],matches[0][1]))
     os.close(fd)
     return 0
@@ -91,17 +91,17 @@ def showHeader(filename):
 # prints a pair base --> quality
 def showSeqQlty(filename):
     fd = os.open(filename, os.O_RDONLY)
-    while True:
-        headerline = readLine(fd)
-        if headerline:
-            seqline   = readLine(fd)
-            breakline = readLine(fd)
-            qltyline  = readLine(fd)
-            seqlength = readLength(headerline)
-            for i in range(seqlength):
-                print ("%c --> %d" % (seqline[i], ord(qltyline[i])-33 ), end ='\n')
-        else:
-            break    
+    #while True:      # loop for all seq in fastq
+    headerline = readLine(fd)
+    if headerline:
+        seqline   = readLine(fd)
+        readLine(fd)  # Breakline
+        qltyline  = readLine(fd)
+        seqlength = readLength(headerline)
+        for i in range(seqlength):
+            print ("%c --> %d" % (seqline[i], qltyline[i]-33 ))
+    #    else:
+    #        break    
     os.close(fd)
     return 0
 
@@ -110,12 +110,12 @@ def showSeqQlty(filename):
 # The function returns de worst pair, ie, the base with the lowest quality
 # Returns a list [base, quality] of the worst pair base -> quality
 def worstQlty(seqLine, qltyLine): 
-    worstqlty = ord( qltyLine[0] ) - 33 
+    worstqlty = qltyLine[0] - 33 
     base      = seqLine[0]
     seqlength = len( seqLine )
 
     for i in range(seqlength):
-        quality =  ord( qltyLine[i] ) - 33 
+        quality =  qltyLine[i] - 33 
         if ( quality < worstqlty ):
             worstqlty = quality
             base = seqLine[i]
@@ -132,22 +132,24 @@ def showWorstQlty(filename):
     headerline = readLine(fd)
     if headerline:                
         seqline   = readLine(fd)
-        breakline = readLine(fd)
+        readLine(fd)  # Breakline
         qltyline  = readLine(fd)
         allworst  = worstQlty(seqline,qltyline)
 
+    """ If refering to the worst of all sequences in file:
     # Read the remaining sequences and update allworst accordingly
     while True:
         headerline = readLine(fd)       
         if headerline:            
             seqline   = readLine(fd)
-            breakline = readLine(fd)
+            readLine(fd)  # Breakline
             qltyline  = readLine(fd)
             worst = worstQlty(seqline,qltyline)
         if (worst[1] < allworst[1]):
             allworst = worst        
         else:
             break
+    """
     
     print("The worst: %c -> %d" % (allworst[0],allworst[1]))
     os.close(fd)    

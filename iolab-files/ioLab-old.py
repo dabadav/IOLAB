@@ -66,8 +66,8 @@ def writeLine(line):
 # This function opens filename and reads its first line, printing on screen
 # the name of the sequence and the number of bases
 def showHeader(filename):
-    fq = open(filename,"rt" )
-    line = readLine(fq)
+    fq    = open(filename,"rt" )
+    line  = readLine(fq)
     regex = r'(\@.*) length=(\d+)'
     matches = re.findall(regex,line)    
     print("Name: %s, Number of Bases: %s" % (matches[0][0],matches[0][1]))
@@ -146,10 +146,10 @@ def showWorstQlty(filename):
 filename = 'SRR000049.fastq'
 scriptdir = os.path.dirname(__file__)
 filepath = os.path.join(scriptdir,filename)
-#showHeader(filepath)
+showHeader(filepath)
 #showSequence(filepath)
 #showSeqQlty(filepath)
-showWorstQlty(filepath)
+#showWorstQlty(filepath)
 
 """
 print(atoi([b'3',b'0',b'9']))
