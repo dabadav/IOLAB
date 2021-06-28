@@ -1,7 +1,7 @@
-import os
+import os,sys
 import re 
 
-# ioLab.py v0.901
+# ioLab.py v1.901
 # 
 # DANTE AVIÑÓ - 106390
 # 
@@ -50,7 +50,7 @@ def readLength(line):
 # This functions returns a list of bytes read from the file 
 # until a new line is reached (b'\n')
 def readLine(fd):    
-    out = list() 
+    out = []
     while True:       
         input = os.read(fd,1)
         if (not input):
@@ -83,7 +83,7 @@ def showHeader(filename):
     matches = re.findall(regex,line)    
     print("Name: %s, Number of Bases: %s" % (matches[0][0],matches[0][1]))
     os.close(fd)
-    return
+    return 0
 
 
 # Argument filename is a path to the fastq file to read
@@ -153,9 +153,17 @@ def showWorstQlty(filename):
     os.close(fd)    
     return 0
 
-   
+
+### TEST ioLab.py
 filename  = 'SRR000049.fastq'
 scriptdir = os.path.dirname(__file__)
 filepath  = os.path.join(scriptdir,filename)
 
+print(f"\nTesting showSequence of {filepath}...\n")
 showSequence(filepath)
+print(f"\nTesting showHeader of {filepath}...\n")
+showHeader(filepath)
+print(f"\nTesting showSeqQlty of {filepath}...\n")
+showSeqQlty(filepath)
+print(f"\nTesting showWorstQlty of {filepath}...\n")
+showWorstQlty(filepath)

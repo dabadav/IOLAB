@@ -9,12 +9,12 @@ import ioLab as io
  
 ##  ** Computes and Prints the worst quality of all the scores ** 
 # 
-##  In order todo that you will have two processes and two pipes.
+##  In order to do that you will have two processes and two pipes.
 
 def process1(filepath):
     # Open a fastq file given its path
 
-    fd = os.open(filepath,os.O_RDONLY)
+    fd = os.open(filepath, os.O_RDONLY)
 
     # Creation of 2 pipes
     p2ch = os.pipe()
@@ -33,16 +33,17 @@ def process1(filepath):
 
         # Infinite loop
         while True:
-            seqline  = io.readLine(p2ch[0])
-            qltyline = io.readLine(p2ch[0])            
+            cseqline  = io.readLine(p2ch[0])
+            cqltyline = io.readLine(p2ch[0])            
             # Compute worst
-            (cbase,cworst) = io.worstQlty(seqline, qltyline)
+            (cbase,cworst) = io.worstQlty(cseqline, cqltyline)
             if (cbase):
                 # Worst to txt
                 os.write(ch2p[1],''.join(cbase,cworst))    # writes to the pipe ch2p
                 os.write(fdworst, f"Base: {cbase}, Quality: {cworst} \n" )
             else:
                 break
+        os.close(fdworst)
         os.close(ch2p[0])
         os.close(ch2p[1])
         sys.exit(0)
@@ -76,14 +77,14 @@ def process1(filepath):
         # waits for its child returns the worst pair (base,quality),viach2p.  
         # When there are no more lines to read,  the parent process print the worst pair to thestandard output, kills its child, clean up and ends
         
-        sys.stdout = old_stdout
-        print ("Base: %c -> Quality: %d" % (base,io.atoi(worst)-33) )
+        #sys.stdout = old_stdout
+        print("Base: %c -> Quality: %d" % (base,io.atoi(worst)-33) )
         os.close(p2ch[0])
         os.close(p2ch[1])
         os.wait()
 
-
 filename  = 'SRR000049.fastq'
 scriptdir = os.path.dirname(__file__)
 filepath  = os.path.join(scriptdir,filename)
+
 process1(filepath)
