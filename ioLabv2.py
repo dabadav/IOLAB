@@ -95,9 +95,7 @@ def showSeqQlty(filename):
         qltyline  = readLine(fd)
         seqlength = readLength(headerline)
         for i in range(seqlength):
-            print ("%c --> %d" % (seqline[i], ord(qltyline[i])-33 ), end ='\n')
-    else:
-        break    
+            print ("%c --> %d" % (seqline[i], ord(qltyline[i])-33 ), end ='\n')  
     os.close(fd)
     return 0
 
