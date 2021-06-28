@@ -69,6 +69,9 @@ def writeLine(line):
     os.write(1,line)  
     return 0
 
+def writeLine2(fd,line):    
+    os.write(fd,line)  
+    return 0
 
 # Argument filename is a path to the fastq file to  read
 # This function opens filename and reads its first line, printing on screen

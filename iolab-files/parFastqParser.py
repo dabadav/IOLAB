@@ -29,12 +29,12 @@ def process1(filepath):
         # returns to its parent a pair(base, quality) via pipe ch2p and writes the pair to an ASCII text file calledworst.txt.  
         # This file is created by the child process at the beginning with permissions: rw-rw-r--.
         
-        fdworst = os.open('calledworst.txt',os.O_WRONLY|O_CREAT|os.O_TRUNC,b'110110100')
+        fdworst = os.open('calledworst.txt', os.O_WRONLY|O_CREAT|os.O_TRUNC, 0o664)
 
         # Infinite loop
         while True:
-            seqline  = io.readline(p2ch[0])
-            qltyline = io.readline(p2ch[0])            
+            seqline  = io.readLine(p2ch[0])
+            qltyline = io.readLine(p2ch[0])            
             # Compute worst
             (cbase,cworst) = io.worstQlty(seqline, qltyline)
             if (cbase):
@@ -53,8 +53,8 @@ def process1(filepath):
         # Parent sends this information to its child, via pipep2ch (using io.writeLine and stdout redirection)
         
         # Redirect standard output to the p2ch write pipe, i.e. p2ch[1]
-        old_stdout = sys.stdout
-        sys.stdout = p2ch[1]
+        #old_stdout = sys.stdout
+        #sys.stdout = p2ch[1]
         
         while True:
             headerline = io.readLine(fd)
@@ -64,8 +64,8 @@ def process1(filepath):
                 io.readLine(fd) # breakline
                 qltyline  = b''.join(io.readLine(fd))
                 # It writes to the p2ch pipe, because of stdout redirection
-                io.writeline(seqline)
-                io.writeline(qltyline)
+                io.writeLine2(p2ch[1],seqline)
+                io.writeLine2(p2ch[1],qltyline)
                 # Waits to read the worst quality pair (base,quality) from  child project
                 (seqbase,seqquality) = os.read(ch2p[0],2)                
                 if (seqquality < worst):
@@ -77,11 +77,10 @@ def process1(filepath):
         # When there are no more lines to read,  the parent process print the worst pair to thestandard output, kills its child, clean up and ends
         
         sys.stdout = old_stdout
-        print ("Base: %c -> Quality: %d" % (base,io.atoi(worst)) )
+        print ("Base: %c -> Quality: %d" % (base,io.atoi(worst)-33) )
         os.close(p2ch[0])
         os.close(p2ch[1])
         os.wait()
-
 
 
 filename  = 'SRR000049.fastq'
